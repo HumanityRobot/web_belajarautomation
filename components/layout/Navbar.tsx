@@ -3,14 +3,10 @@
 import { useEffect, useState } from "react";
 import { Menu, Moon, Search, Sun } from "lucide-react";
 import NotificationPopover from "@/components/notifications/NotificationPopover";
+import ProfileDropdown from "@/components/profile/ProfileDropdown";
 import { useTheme } from "next-themes";
 
 import { Input } from "@/components/ui/input";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
 
 interface NavbarProps {
   onToggleSidebar: () => void;
@@ -90,23 +86,8 @@ export default function Navbar({
 
         <NotificationPopover />
 
-        {/* User */}
-        <div className="flex items-center gap-3">
-          <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>A</AvatarFallback>
-          </Avatar>
-
-          <div className="hidden lg:block">
-            <p className="text-sm font-semibold text-foreground">
-              Aril
-            </p>
-
-            <p className="text-xs text-muted-foreground">
-              Free Plan
-            </p>
-          </div>
-        </div>
+        {/* User Profile Dropdown */}
+        <ProfileDropdown />
       </div>
     </header>
   );
