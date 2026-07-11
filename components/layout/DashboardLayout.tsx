@@ -12,26 +12,33 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(true);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+    if (window.innerWidth >= 1024) {
+      setIsDesktopSidebarOpen((prev) => !prev);
+    } else {
+      setIsMobileSidebarOpen((prev) => !prev);
+    }
   };
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background text-foreground">
       {/* Desktop Sidebar */}
-      <div className="hidden shrink-0 lg:block">
-        <Sidebar />
-      </div>
+      {isDesktopSidebarOpen && (
+        <div className="hidden shrink-0 lg:block">
+          <Sidebar />
+        </div>
+      )}
 
       {/* Mobile Sidebar Overlay */}
-      {isSidebarOpen && (
+      {isMobileSidebarOpen && (
         <>
           <button
             type="button"
             aria-label="Tutup sidebar"
-            onClick={toggleSidebar}
+            onClick={() => setIsMobileSidebarOpen(false)}
             className="fixed inset-0 z-40 bg-black/50 lg:hidden"
           />
 

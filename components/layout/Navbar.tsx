@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Bell, Menu, Moon, Search, Sun } from "lucide-react";
+import { Menu, Moon, Search, Sun } from "lucide-react";
+import NotificationPopover from "@/components/notifications/NotificationPopover";
 import { useTheme } from "next-themes";
 
 import { Input } from "@/components/ui/input";
@@ -87,16 +88,7 @@ export default function Navbar({
           )}
         </button>
 
-        {/* Notification */}
-        <button
-          type="button"
-          className="relative rounded-lg p-2 transition-colors hover:bg-accent"
-          aria-label="Notifikasi"
-        >
-          <Bell size={20} />
-
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" />
-        </button>
+        <NotificationPopover />
 
         {/* User */}
         <div className="flex items-center gap-3">

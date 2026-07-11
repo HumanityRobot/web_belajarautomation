@@ -1,3 +1,8 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import {
   LayoutDashboard,
   BookOpen,
@@ -9,7 +14,52 @@ import {
   Briefcase,
 } from "lucide-react";
 
+const menuItems = [
+  {
+    label: "Dashboard",
+    href: "/",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "Belajar",
+    href: "/learn",
+    icon: BookOpen,
+  },
+  {
+    label: "Roadmap",
+    href: "/roadmap",
+    icon: Map,
+  },
+  {
+    label: "Playground",
+    href: "/playground",
+    icon: FlaskConical,
+  },
+  {
+    label: "Project",
+    href: "/projects",
+    icon: FolderKanban,
+  },
+  {
+    label: "Books",
+    href: "/books",
+    icon: Library,
+  },
+  {
+    label: "Blog",
+    href: "/blog",
+    icon: Newspaper,
+  },
+  {
+    label: "Career",
+    href: "/career",
+    icon: Briefcase,
+  },
+];
+
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <aside className="h-screen w-64 border-r border-border bg-background text-foreground">
       <div className="p-6">
@@ -23,45 +73,36 @@ export default function Sidebar() {
       </div>
 
       <nav className="space-y-2 px-4">
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <LayoutDashboard size={20} />
-          Dashboard
-        </button>
+        {menuItems.map((item) => {
+          const Icon = item.icon;
 
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <BookOpen size={20} />
-          Belajar
-        </button>
+          const isActive =
+            item.href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(item.href);
 
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <Map size={20} />
-          Roadmap
-        </button>
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`
+                flex w-full items-center gap-3 rounded-xl px-4 py-3
+                transition-colors
+                ${
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                }
+              `}
+            >
+              <Icon size={20} />
 
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <FlaskConical size={20} />
-          Playground
-        </button>
-
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <FolderKanban size={20} />
-          Project
-        </button>
-
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <Library size={20} />
-          Books
-        </button>
-
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <Newspaper size={20} />
-          Blog
-        </button>
-
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-accent">
-          <Briefcase size={20} />
-          Career
-        </button>
+              <span className="font-medium">
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );
