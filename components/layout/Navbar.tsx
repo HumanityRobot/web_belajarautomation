@@ -1,4 +1,8 @@
-import { Bell, Menu, Moon, Search } from "lucide-react";
+"use client";
+
+import { Bell, Menu, Moon, Search, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+
 import { Input } from "@/components/ui/input";
 import {
   Avatar,
@@ -7,18 +11,24 @@ import {
 } from "@/components/ui/avatar";
 
 export default function Navbar() {
+  const { resolvedTheme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b bg-white px-6">
+    <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-border bg-background px-6">
       {/* Left */}
       <div className="flex items-center gap-4">
-        <button className="rounded-lg p-2 hover:bg-gray-100 transition">
+        <button className="rounded-lg p-2 transition-colors hover:bg-accent">
           <Menu size={20} />
         </button>
 
         <div className="relative w-[420px]">
           <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             size={18}
+            className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground"
           />
 
           <Input
@@ -30,16 +40,27 @@ export default function Navbar() {
 
       {/* Right */}
       <div className="flex items-center gap-4">
-
-        <button className="rounded-lg p-2 hover:bg-gray-100 transition">
-          <Moon size={20} />
+        {/* Theme Toggle */}
+        <button
+          onClick={toggleTheme}
+          className="rounded-lg p-2 transition-colors hover:bg-accent"
+          aria-label="Toggle Theme"
+        >
+          {resolvedTheme === "dark" ? (
+            <Sun size={20} />
+          ) : (
+            <Moon size={20} />
+          )}
         </button>
 
-        <button className="relative rounded-lg p-2 hover:bg-gray-100 transition">
+        {/* Notification */}
+        <button className="relative rounded-lg p-2 transition-colors hover:bg-accent">
           <Bell size={20} />
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-blue-600"></span>
+
+          <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary" />
         </button>
 
+        {/* User */}
         <div className="flex items-center gap-3">
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
@@ -47,17 +68,15 @@ export default function Navbar() {
           </Avatar>
 
           <div className="hidden md:block">
-            <p className="text-sm font-semibold">
+            <p className="text-sm font-semibold text-foreground">
               Aril
             </p>
 
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               Free Plan
             </p>
           </div>
-
         </div>
-
       </div>
     </header>
   );

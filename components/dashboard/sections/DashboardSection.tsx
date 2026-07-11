@@ -1,11 +1,11 @@
-import WelcomeBanner from "./WelcomeBanner";
+import WelcomeBanner from "@/components/dashboard/sections/WelcomeBanner";
+import CategorySection from "@/components/dashboard/sections/CategorySection";
 
 import ProgressCard from "../cards/ProgressCard";
 import ContinueLearningCard from "../cards/ContinueLearningCard";
 import ActivityCard from "../cards/ActivityCard";
 
 import RoadmapCard from "@/components/roadmap/RoadmapCard";
-import CategorySection from "@/components/dashboard/sections/CategorySection";
 
 export default function DashboardSection() {
   return (
@@ -33,7 +33,7 @@ export default function DashboardSection() {
         <ActivityCard />
       </div>
 
-      {/* Category */}
+      {/* Categories */}
       <div className="col-span-12">
         <CategorySection />
       </div>

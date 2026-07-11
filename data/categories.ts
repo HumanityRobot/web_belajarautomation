@@ -1,47 +1,54 @@
-import {
-  Bug,
-  Boxes,
-  Database,
-  Smartphone,
-  Workflow,
-} from "lucide-react";
-
 import { Category } from "@/types/Category";
+import {
+  Bot,
+  Code2,
+  GitBranch,
+  Globe,
+  Smartphone,
+ Workflow,
+} from "lucide-react";
 
 export const CATEGORIES: Category[] = [
   {
     id: 1,
-    title: "Selenium",
-    lessons: 32,
+    title: "Playwright",
+    lessons: 24,
     level: "Beginner",
-    icon: Bug,
+    icon: Code2,
   },
   {
     id: 2,
-    title: "Playwright",
-    lessons: 41,
+    title: "Selenium",
+    lessons: 18,
     level: "Intermediate",
-    icon: Boxes,
+    icon: Globe,
   },
   {
     id: 3,
-    title: "API Testing",
-    lessons: 20,
-    level: "Beginner",
-    icon: Database,
-  },
-  {
-    id: 4,
     title: "Appium",
-    lessons: 18,
-    level: "Advanced",
+    lessons: 15,
+    level: "Intermediate",
     icon: Smartphone,
   },
   {
-    id: 5,
-    title: "CI/CD",
+    id: 4,
+    title: "API Testing",
     lessons: 12,
-    level: "Intermediate",
+    level: "Beginner",
     icon: Workflow,
+  },
+  {
+    id: 5,
+    title: "AI Automation",
+    lessons: 8,
+    level: "Advanced",
+    icon: Bot,
+  },
+  {
+    id: 6,
+    title: "CI/CD",
+    lessons: 10,
+    level: "Advanced",
+    icon: GitBranch,
   },
 ];

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+
+import ThemeProvider from "@/components/providers/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
@@ -13,11 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <body>
-        <TooltipProvider>
-          {children}
-        </TooltipProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            {children}
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
