@@ -27,13 +27,13 @@ const activities = [
 
 export default function ActivityCard() {
   return (
-    <div className="rounded-3xl border bg-white p-6 shadow-sm">
+    <div className="rounded-3xl border border-border bg-card p-6 text-card-foreground shadow-sm">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-lg font-semibold">
           Aktivitas Terbaru
         </h2>
 
-        <button className="text-sm text-blue-600 hover:underline">
+        <button className="text-sm text-blue-600 hover:underline dark:text-blue-400">
           Lihat Semua
         </button>
       </div>
@@ -43,10 +43,7 @@ export default function ActivityCard() {
           const Icon = activity.icon;
 
           return (
-            <div
-              key={index}
-              className="flex gap-3"
-            >
+            <div key={index} className="flex gap-3">
               <div className="mt-1">
                 <Icon
                   size={18}
@@ -59,12 +56,12 @@ export default function ActivityCard() {
                   {activity.title}
                 </p>
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-muted-foreground">
                   {activity.subtitle}
                 </p>
               </div>
 
-              <span className="text-xs text-gray-400">
+              <span className="text-xs text-muted-foreground">
                 {activity.time}
               </span>
             </div>

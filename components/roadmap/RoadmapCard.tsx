@@ -10,36 +10,33 @@ const renderIcon = (status: string) => {
       return <PlayCircle className="h-5 w-5 text-blue-500" />;
 
     default:
-      return <Circle className="h-5 w-5 text-gray-300" />;
+      return <Circle className="h-5 w-5 text-muted-foreground/40" />;
   }
 };
 
 export default function RoadmapCard() {
   return (
-    <div className="rounded-3xl border bg-white p-6 shadow-sm">
+    <div className="rounded-3xl border border-border bg-card p-6 text-card-foreground shadow-sm">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-lg font-semibold text-foreground">
           Roadmap Kamu
         </h2>
 
-        <button className="text-sm text-blue-600 hover:underline">
+        <button className="text-sm text-blue-600 hover:underline dark:text-blue-400">
           Lihat Semua
         </button>
       </div>
 
       <div className="space-y-5">
         {ROADMAP_ITEMS.map((item) => (
-          <div
-            key={item.id}
-            className="flex items-center gap-3"
-          >
+          <div key={item.id} className="flex items-center gap-3">
             {renderIcon(item.status)}
 
             <span
               className={`text-sm ${
                 item.status === "locked"
-                  ? "text-gray-400"
-                  : "text-gray-700"
+                  ? "text-muted-foreground"
+                  : "text-foreground"
               }`}
             >
               {item.title}

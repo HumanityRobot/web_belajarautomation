@@ -6,10 +6,14 @@ export default function ContinueLearningCard() {
   const progress = 60;
 
   return (
-    <div className="rounded-3xl border bg-white p-6 shadow-sm hover:shadow-md transition">
+    <div className="rounded-3xl border border-border bg-card p-6 text-card-foreground shadow-sm transition hover:shadow-md">
       <div className="flex items-center gap-2">
-        <BookOpen className="text-blue-600" size={20} />
-        <h2 className="font-semibold text-lg">
+        <BookOpen
+          className="text-blue-600 dark:text-blue-400"
+          size={20}
+        />
+
+        <h2 className="text-lg font-semibold">
           Continue Learning
         </h2>
       </div>
@@ -19,18 +23,15 @@ export default function ContinueLearningCard() {
           Playwright Locator
         </h3>
 
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-muted-foreground">
           Learn XPath, CSS Selector, Text Locator,
           Role Locator, dan Best Practice.
         </p>
       </div>
 
-      <Progress
-        value={progress}
-        className="mt-6"
-      />
+      <Progress value={progress} className="mt-6" />
 
-      <div className="mt-4 flex justify-between text-sm text-gray-500">
+      <div className="mt-4 flex justify-between text-sm text-muted-foreground">
         <div className="flex items-center gap-1">
           <Clock size={16} />
           15 min

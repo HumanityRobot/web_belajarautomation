@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Bell, Menu, Moon, Search, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -10,43 +11,76 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar";
 
-export default function Navbar() {
+interface NavbarProps {
+  onToggleSidebar: () => void;
+}
+
+export default function Navbar({
+  onToggleSidebar,
+}: NavbarProps) {
   const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
+    if (!mounted) return;
+
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-border bg-background px-6">
+    <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between gap-2 border-b border-border bg-background px-3 sm:px-4 lg:px-6">
       {/* Left */}
-      <div className="flex items-center gap-4">
-        <button className="rounded-lg p-2 transition-colors hover:bg-accent">
+      <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-4">
+        {/* Sidebar Toggle */}
+        <button
+          type="button"
+          onClick={onToggleSidebar}
+          className="shrink-0 rounded-lg p-2 transition-colors hover:bg-accent"
+          aria-label="Buka atau tutup sidebar"
+        >
           <Menu size={20} />
         </button>
 
-        <div className="relative w-[420px]">
+        {/* Search - Tablet & Desktop */}
+        <div className="relative hidden min-w-0 flex-1 sm:block sm:max-w-[420px]">
           <Search
             size={18}
-            className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
 
           <Input
             placeholder="Cari materi, roadmap, artikel..."
-            className="pl-10"
+            className="w-full pl-10"
           />
         </div>
+
+        {/* Search Icon - Mobile */}
+        <button
+          type="button"
+          className="shrink-0 rounded-lg p-2 transition-colors hover:bg-accent sm:hidden"
+          aria-label="Cari"
+        >
+          <Search size={20} />
+        </button>
       </div>
 
       {/* Right */}
-      <div className="flex items-center gap-4">
+      <div className="flex shrink-0 items-center gap-1 sm:gap-2 lg:gap-4">
         {/* Theme Toggle */}
         <button
+          type="button"
           onClick={toggleTheme}
-          className="rounded-lg p-2 transition-colors hover:bg-accent"
-          aria-label="Toggle Theme"
+          disabled={!mounted}
+          className="rounded-lg p-2 transition-colors hover:bg-accent disabled:cursor-default"
+          aria-label="Ganti tema"
         >
-          {resolvedTheme === "dark" ? (
+          {!mounted ? (
+            <span className="block h-5 w-5" />
+          ) : resolvedTheme === "dark" ? (
             <Sun size={20} />
           ) : (
             <Moon size={20} />
@@ -54,20 +88,24 @@ export default function Navbar() {
         </button>
 
         {/* Notification */}
-        <button className="relative rounded-lg p-2 transition-colors hover:bg-accent">
+        <button
+          type="button"
+          className="relative rounded-lg p-2 transition-colors hover:bg-accent"
+          aria-label="Notifikasi"
+        >
           <Bell size={20} />
 
-          <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary" />
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" />
         </button>
 
         {/* User */}
         <div className="flex items-center gap-3">
-          <Avatar>
+          <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>A</AvatarFallback>
           </Avatar>
 
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <p className="text-sm font-semibold text-foreground">
               Aril
             </p>
