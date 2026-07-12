@@ -1,13 +1,14 @@
 import WelcomeBanner from "@/components/dashboard/sections/WelcomeBanner";
 import CategorySection from "@/components/dashboard/sections/CategorySection";
+import RoadmapCard from "@/components/roadmap/RoadmapCard";
 
 import ProgressCard from "../cards/ProgressCard";
 import ContinueLearningCard from "../cards/ContinueLearningCard";
 import ActivityCard from "../cards/ActivityCard";
 
-import RoadmapCard from "@/components/roadmap/RoadmapCard";
 import BooksSection from "./BooksSection";
 import PremiumSection from "./PremiumSection";
+import { ROADMAPS } from "@/data/roadmap";
 
 export default function DashboardSection() {
   return (
@@ -17,7 +18,7 @@ export default function DashboardSection() {
       </div>
 
       <div className="min-w-0 lg:col-span-4">
-        <RoadmapCard />
+        <RoadmapCard roadmap={ROADMAPS[0]} />
       </div>
 
       <div className="min-w-0 lg:col-span-4">

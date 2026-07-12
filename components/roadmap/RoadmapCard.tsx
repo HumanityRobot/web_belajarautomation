@@ -1,49 +1,109 @@
-import { CheckCircle2, Circle, PlayCircle } from "lucide-react";
-import { ROADMAP_ITEMS } from "../../data/roadmap";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Clock3,
+  Layers3,
+  Lock,
+} from "lucide-react";
 
-const renderIcon = (status: string) => {
-  switch (status) {
-    case "completed":
-      return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+import { Roadmap } from "@/types/Roadmap";
 
-    case "current":
-      return <PlayCircle className="h-5 w-5 text-blue-500" />;
+interface RoadmapCardProps {
+  roadmap: Roadmap;
+}
 
-    default:
-      return <Circle className="h-5 w-5 text-muted-foreground/40" />;
-  }
-};
+export default function RoadmapCard({
+  roadmap,
+}: RoadmapCardProps) {
+  const Icon = roadmap.icon;
+  const isComingSoon = roadmap.status === "coming-soon";
 
-export default function RoadmapCard() {
   return (
-    <div className="rounded-3xl border border-border bg-card p-6 text-card-foreground shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-foreground">
-          Roadmap Kamu
-        </h2>
+    <article
+      className={`
+        relative flex min-h-[320px] flex-col overflow-hidden
+        rounded-3xl border bg-card p-6 text-card-foreground
+        transition-all duration-300
+        ${
+          isComingSoon
+            ? "opacity-70"
+            : "hover:-translate-y-1 hover:shadow-lg"
+        }
+      `}
+    >
+      {/* Badge */}
+      <div className="absolute right-5 top-5">
+        {roadmap.featured && (
+          <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
+            Recommended
+          </span>
+        )}
 
-        <button className="text-sm text-blue-600 hover:underline dark:text-blue-400">
-          Lihat Semua
-        </button>
+        {isComingSoon && (
+          <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+            Coming Soon
+          </span>
+        )}
       </div>
 
-      <div className="space-y-5">
-        {ROADMAP_ITEMS.map((item) => (
-          <div key={item.id} className="flex items-center gap-3">
-            {renderIcon(item.status)}
+      {/* Icon */}
+      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-muted">
+        <Icon className="h-6 w-6" />
+      </div>
 
-            <span
-              className={`text-sm ${
-                item.status === "locked"
-                  ? "text-muted-foreground"
-                  : "text-foreground"
-              }`}
-            >
-              {item.title}
+      {/* Content */}
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold">
+          {roadmap.title}
+        </h3>
+
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
+          {roadmap.description}
+        </p>
+      </div>
+
+      {/* Information */}
+      <div className="mt-6 flex flex-wrap gap-2">
+        <span className="rounded-full bg-muted px-3 py-1.5 text-xs font-medium">
+          {roadmap.level}
+        </span>
+
+        {!isComingSoon && (
+          <>
+            <span className="flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-medium">
+              <Layers3 className="h-3.5 w-3.5" />
+              {roadmap.modules} Modul
             </span>
-          </div>
-        ))}
+
+            <span className="flex items-center gap-1.5 rounded-full bg-muted px-3 py-1.5 text-xs font-medium">
+              <Clock3 className="h-3.5 w-3.5" />
+              {roadmap.duration}
+            </span>
+          </>
+        )}
       </div>
-    </div>
+
+      {/* Action */}
+      <div className="mt-auto pt-7">
+        {isComingSoon ? (
+          <button
+            type="button"
+            disabled
+            className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl border py-3 text-sm font-medium text-muted-foreground"
+          >
+            <Lock className="h-4 w-4" />
+            Coming Soon
+          </button>
+        ) : (
+          <Link
+            href={`/roadmap/${roadmap.id}`}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            Lihat Roadmap
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        )}
+      </div>
+    </article>
   );
 }
