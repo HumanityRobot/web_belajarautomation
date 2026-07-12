@@ -11,7 +11,7 @@ import {
 import type { Book } from "@/types/book";
 
 interface BookCardProps {
-  book: Book;
+  book: Book; 
 }
 
 export default function BookCard({
