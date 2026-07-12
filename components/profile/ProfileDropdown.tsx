@@ -9,6 +9,8 @@ import {
   User,
 } from "lucide-react";
 
+import { logoutAction } from "@/actions/auth/logout";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,7 +37,10 @@ export default function ProfileDropdown() {
             src="https://github.com/shadcn.png"
             alt="Aril"
           />
-          <AvatarFallback>A</AvatarFallback>
+
+          <AvatarFallback>
+            A
+          </AvatarFallback>
         </Avatar>
 
         <div className="hidden text-left lg:block">
@@ -67,6 +72,7 @@ export default function ProfileDropdown() {
 
         <DropdownMenuSeparator />
 
+        {/* Profile */}
         <DropdownMenuItem className="p-0">
           <Link
             href="/profile"
@@ -77,6 +83,7 @@ export default function ProfileDropdown() {
           </Link>
         </DropdownMenuItem>
 
+        {/* Settings */}
         <DropdownMenuItem className="p-0">
           <Link
             href="/settings"
@@ -87,6 +94,7 @@ export default function ProfileDropdown() {
           </Link>
         </DropdownMenuItem>
 
+        {/* Premium */}
         <DropdownMenuItem className="p-0">
           <Link
             href="/premium"
@@ -99,14 +107,20 @@ export default function ProfileDropdown() {
 
         <DropdownMenuSeparator />
 
+        {/* Logout */}
         <DropdownMenuItem className="p-0 text-destructive focus:text-destructive">
-          <Link
-            href="/login"
-            className="flex w-full items-center gap-2 px-2 py-1.5"
+          <form
+            action={logoutAction}
+            className="w-full"
           >
-            <LogOut className="h-4 w-4" />
-            Logout
-          </Link>
+            <button
+              type="submit"
+              className="flex w-full items-center gap-2 px-2 py-1.5 text-left text-destructive"
+            >
+              <LogOut className="h-4 w-4" />
+              Logout
+            </button>
+          </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

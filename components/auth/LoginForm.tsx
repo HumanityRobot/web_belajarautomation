@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useActionState,
+  useState,
+} from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   Eye,
   EyeOff,
@@ -10,22 +12,27 @@ import {
   Mail,
 } from "lucide-react";
 
+import {
+  loginAction,
+  type LoginState,
+} from "@/actions/auth/login";
+
 import { Input } from "@/components/ui/input";
 
-export default function LoginForm() {
-  const router = useRouter();
+const initialState: LoginState = {
+  success: false,
+  message: "",
+};
 
+export default function LoginForm() {
   const [showPassword, setShowPassword] =
     useState(false);
 
-  const handleSubmit = (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
-
-    // TODO: Integrasikan authentication nanti
-    router.push("/");
-  };
+  const [state, formAction, pending] =
+    useActionState(
+      loginAction,
+      initialState
+    );
 
   return (
     <div className="w-full max-w-md">
@@ -40,7 +47,7 @@ export default function LoginForm() {
       </div>
 
       <form
-        onSubmit={handleSubmit}
+        action={formAction}
         className="mt-8 space-y-5"
       >
         {/* Email */}
@@ -57,9 +64,12 @@ export default function LoginForm() {
 
             <Input
               id="email"
+              name="email"
               type="email"
               placeholder="nama@email.com"
               className="h-12 pl-10"
+              autoComplete="email"
+              required
             />
           </div>
         </div>
@@ -78,6 +88,7 @@ export default function LoginForm() {
 
             <Input
               id="password"
+              name="password"
               type={
                 showPassword
                   ? "text"
@@ -85,6 +96,8 @@ export default function LoginForm() {
               }
               placeholder="Masukkan password"
               className="h-12 px-10"
+              autoComplete="current-password"
+              required
             />
 
             <button
@@ -114,9 +127,11 @@ export default function LoginForm() {
         <div className="flex items-center justify-between gap-4">
           <label className="flex cursor-pointer items-center gap-2 text-sm">
             <input
+              name="rememberMe"
               type="checkbox"
               className="h-4 w-4 rounded border-border accent-primary"
             />
+
             Ingat saya
           </label>
 
@@ -128,12 +143,22 @@ export default function LoginForm() {
           </Link>
         </div>
 
+        {/* Error */}
+        {state.message && (
+          <div className="rounded-xl border border-destructive/20 bg-destructive/5 px-4 py-3">
+            <p className="text-sm text-destructive">
+              {state.message}
+            </p>
+          </div>
+        )}
+
         {/* Submit */}
         <button
           type="submit"
-          className="h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+          disabled={pending}
+          className="h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Masuk
+          {pending ? "Masuk..." : "Masuk"}
         </button>
       </form>
 
