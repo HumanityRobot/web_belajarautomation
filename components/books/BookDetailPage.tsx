@@ -12,7 +12,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
-import { Book } from "@/types/Book";
+import type { Book } from "@/types/book";
 
 interface BookDetailPageProps {
   book: Book;

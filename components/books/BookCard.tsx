@@ -8,7 +8,7 @@ import {
   FileText,
 } from "lucide-react";
 
-import { Book } from "@/types/Book";
+import type { Book } from "@/types/book";
 
 interface BookCardProps {
   book: Book;
