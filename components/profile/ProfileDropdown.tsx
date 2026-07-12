@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import {
   Crown,
   LogOut,
@@ -29,7 +31,10 @@ export default function ProfileDropdown() {
         aria-label="Buka menu profil"
       >
         <Avatar className="h-8 w-8 sm:h-10 sm:w-10">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage
+            src="https://github.com/shadcn.png"
+            alt="Aril"
+          />
           <AvatarFallback>A</AvatarFallback>
         </Avatar>
 
@@ -62,26 +67,46 @@ export default function ProfileDropdown() {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
-          <User className="h-4 w-4" />
-          Profile
+        <DropdownMenuItem className="p-0">
+          <Link
+            href="/profile"
+            className="flex w-full items-center gap-2 px-2 py-1.5"
+          >
+            <User className="h-4 w-4" />
+            Profile
+          </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem>
-          <Settings className="h-4 w-4" />
-          Settings
+        <DropdownMenuItem className="p-0">
+          <Link
+            href="/settings"
+            className="flex w-full items-center gap-2 px-2 py-1.5"
+          >
+            <Settings className="h-4 w-4" />
+            Settings
+          </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem>
-          <Crown className="h-4 w-4" />
-          Upgrade Premium
+        <DropdownMenuItem className="p-0">
+          <Link
+            href="/premium"
+            className="flex w-full items-center gap-2 px-2 py-1.5"
+          >
+            <Crown className="h-4 w-4" />
+            Upgrade Premium
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem className="text-destructive">
-          <LogOut className="h-4 w-4" />
-          Logout
+        <DropdownMenuItem className="p-0 text-destructive focus:text-destructive">
+          <Link
+            href="/login"
+            className="flex w-full items-center gap-2 px-2 py-1.5"
+          >
+            <LogOut className="h-4 w-4" />
+            Logout
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

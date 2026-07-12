@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, Moon, Search, Sun } from "lucide-react";
-import NotificationPopover from "@/components/notifications/NotificationPopover";
-import ProfileDropdown from "@/components/profile/ProfileDropdown";
+import Link from "next/link";
+import { Bell, Menu, Moon, Search, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
+import ProfileDropdown from "@/components/profile/ProfileDropdown";
 import { Input } from "@/components/ui/input";
 
 interface NavbarProps {
@@ -25,7 +25,9 @@ export default function Navbar({
   const toggleTheme = () => {
     if (!mounted) return;
 
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(
+      resolvedTheme === "dark" ? "light" : "dark"
+    );
   };
 
   return (
@@ -84,7 +86,17 @@ export default function Navbar({
           )}
         </button>
 
-        <NotificationPopover />
+        {/* Notifications */}
+        <Link
+          href="/notifications"
+          className="relative rounded-lg p-2 transition-colors hover:bg-accent"
+          aria-label="Notifikasi"
+        >
+          <Bell size={20} />
+
+          {/* Unread Badge */}
+          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
+        </Link>
 
         {/* User Profile Dropdown */}
         <ProfileDropdown />
